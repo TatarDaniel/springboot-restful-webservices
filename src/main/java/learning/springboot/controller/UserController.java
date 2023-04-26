@@ -1,5 +1,6 @@
 package learning.springboot.controller;
 
+import jakarta.validation.Valid;
 import learning.springboot.dto.UserDto;
 import learning.springboot.exceptions.ErrorDetails;
 import learning.springboot.exceptions.ResourceNotFoundException;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto user){
         UserDto savedUser = this.userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable(value = "id") Long userId, @RequestBody UserDto user){
+    public ResponseEntity<UserDto> updateUser(@PathVariable(value = "id") Long userId, @RequestBody @Valid UserDto user){
             UserDto updatedUser = this.userService.updateUser(userId, user);
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
